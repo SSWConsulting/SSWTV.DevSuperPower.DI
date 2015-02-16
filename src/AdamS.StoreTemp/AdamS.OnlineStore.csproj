@@ -178,6 +178,7 @@
     <Compile Include="Controllers\CustomerControllerWithDI.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DependencyResolution\IoCSimple.cs" />
     <Compile Include="DependencyResolution\WebRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="Global.asax.cs">

@@ -24,7 +24,7 @@ namespace AdamS.OnlineStore.DependencyResolverWeb
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerRequest();
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().SingleInstance();
         }
     }
 }
