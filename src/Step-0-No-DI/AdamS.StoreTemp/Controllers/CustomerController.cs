@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AdamS.OnlineStore.Models;
@@ -16,6 +17,7 @@ namespace AdamS.OnlineStore.Controllers
 
             var allCustomers = customerDb.Get();
 
+            
             return View(allCustomers);
         }
 
@@ -39,11 +41,13 @@ namespace AdamS.OnlineStore.Controllers
 
                 customerDb.Delete(id);
 
-                notifcation.Send("admin@mycompany.com", "Customer Deleted", string.Format("Customer Deleted : ", id));
+                var statusMessage = string.Format("Customer Deleted : {0}", id);
 
-                logger.Info("Deleted Customer with Id: {0}", id);
+                notifcation.Send("admin@mycompany.com", "Customer Deleted", statusMessage);
 
-                return RedirectToAction("Index");
+                logger.Info(statusMessage);
+
+                return Content(statusMessage);
 
             }
             catch (Exception ex)
