@@ -4,14 +4,7 @@ namespace AdamS.StoreTemp.Models
     {
         bool Send(string destination, string subject, string message);
     }
-    public class EmailSender : INotificationProvider
-    {
-        public bool Send(string destination, string subject, string body)
-        {
-            //todo: send an email
-            return true;
-        }
-    }
+  
     public class SmsSender : INotificationProvider
     {
         public bool Send(string destination, string subject, string body)
@@ -20,5 +13,4 @@ namespace AdamS.StoreTemp.Models
             return true;
         }
     }
-    
 }

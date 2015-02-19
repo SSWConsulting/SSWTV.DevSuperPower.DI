@@ -1,7 +1,7 @@
 
 
 using System.Web.Mvc;
-
+using AdamS.OnlineStore.Models;
 using AdamS.StoreTemp.Models;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -21,7 +21,7 @@ namespace AdamS.StoreTemp.DependencyResolution {
             builder.RegisterType<EmailSender>().As<INotificationProvider>().InstancePerRequest();
             builder.RegisterType<FileSystemLogger>().As<ILogger>().InstancePerRequest();
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().SingleInstance();
-            builder.RegisterType<OrderRepository>().As<IOrdersRepository>().SingleInstance();
+            builder.RegisterType<OrderRepository>().As<IOrderRepository>().SingleInstance();
             
             //Set the MVC dependency resolver to use Autofac
             var container = builder.Build();

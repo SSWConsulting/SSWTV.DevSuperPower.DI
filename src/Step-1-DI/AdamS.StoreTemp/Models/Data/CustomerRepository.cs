@@ -1,33 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdamS.StoreTemp.Models;
 
-namespace AdamS.StoreTemp.Models
+namespace AdamS.OnlineStore.Models
 {
     public interface ICustomerRepository
     {
-        Customer Get(int id);
         List<Customer> Get();
-
+        Customer Get(int id);
         Customer Add(Customer customer);
         Customer Delete(int id);
     }
 
     public class CustomerRepository : ICustomerRepository
     {
-        private List<Customer> _customers = new List<Customer>
-            {
-                new Customer{Id=1,FirstName = "Adam", LastName = "Apple"}, 
-                new Customer{Id=2,FirstName = "Brad", LastName = "Banana"},
-                new Customer{Id=3,FirstName = "Craig", LastName = "Canary"}
-            };
-        public Customer Get(int id)
+        private List<Customer> _customers;
+
+        public CustomerRepository()
         {
-            return _customers.Single(cust => cust.Id == id);
+            _customers = new List<Customer>
+            {
+                new Customer {Id = 1, FirstName = "Adam", LastName = "Apple"},
+                new Customer {Id = 2, FirstName = "Brad", LastName = "Banana"},
+                new Customer {Id = 3, FirstName = "Craig", LastName = "Canary"}
+            };
         }
 
         public List<Customer> Get()
         {
             return _customers;
+        }
+
+        public Customer Get(int id)
+        {
+            return _customers.Single(cust => cust.Id == id);
         }
 
         public Customer Add(Customer customer)
@@ -36,7 +42,6 @@ namespace AdamS.StoreTemp.Models
             //todo: add Id field
             return customer;
         }
-
 
         public Customer Delete(int id)
         {
@@ -47,9 +52,6 @@ namespace AdamS.StoreTemp.Models
                 _customers.Remove(itemToRemove);
             }
             return itemToRemove;
-
-
         }
     }
-
 }

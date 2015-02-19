@@ -1,11 +1,10 @@
 using System;
+using AdamS.StoreTemp.Models;
 
-namespace AdamS.StoreTemp.Models
+namespace AdamS.OnlineStore.Models
 {
-    public class FileSystemLogger : ILogger
+    public class FileSystemLogger: ILogger
     {
-
-
         public string GetTempPath()
         {
             string path = System.Environment.GetEnvironmentVariable("TEMP");
@@ -38,7 +37,7 @@ namespace AdamS.StoreTemp.Models
 
         public void Error(string format, params object[] args)
         {
-            WriteToLog("ERROR:  " + string.Format(format,args));
+            WriteToLog("ERROR:  " + string.Format(format, args));
         }
 
         public void Error(Exception ex, string message)
@@ -69,7 +68,7 @@ namespace AdamS.StoreTemp.Models
         public void Info(Exception ex, string format, params object[] args)
         {
             WriteToLog("INFO:  " + string.Format(format, args) + Environment.NewLine + ex);
-            
+
         }
     }
 }

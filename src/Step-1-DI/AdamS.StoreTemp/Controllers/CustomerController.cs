@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AdamS.OnlineStore.Models;
 using AdamS.StoreTemp.Models;
 
 namespace AdamS.StoreTemp.Controllers
@@ -11,10 +12,10 @@ namespace AdamS.StoreTemp.Controllers
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly INotificationProvider _notificationProvider;
-        private readonly IOrdersRepository _ordersRepository;
+        private readonly IOrderRepository _ordersRepository;
         private readonly ILogger _logger;
 
-        public CustomerController(ICustomerRepository customerRepository, INotificationProvider notificationProvider, IOrdersRepository ordersRepository, ILogger logger)
+        public CustomerController(ICustomerRepository customerRepository, INotificationProvider notificationProvider, IOrderRepository ordersRepository, ILogger logger)
         {
             _customerRepository = customerRepository;
             _notificationProvider = notificationProvider;
@@ -31,30 +32,31 @@ namespace AdamS.StoreTemp.Controllers
 
         public ActionResult Delete(int id)
         {
-            
             try
             {
                 var customerHasOrders = _ordersRepository.Get(id).Count > 0;
 
                 if (customerHasOrders)
                 {
-                    return Content( "Unable to delete customer due to existing invoices.");
+                    return Content("Unable to delete customer due to existing invoices.");
                 }
-                
+
                 _customerRepository.Delete(id);
 
-                _notificationProvider.Send("admin@mycompany.com", "Customer Deleted", string.Format("Customer Deleted : ", id));
+                var statusMessage = string.Format("Customer Deleted : {0}", id);
 
-                _logger.Info("Deleted Customer with Id: {0}",id);
+                _notificationProvider.Send("admin@mycompany.com", "Customer Deleted", statusMessage);
 
-                return RedirectToAction("Index");
+                _logger.Info(statusMessage);
+
+                return Content(statusMessage);
 
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error Deleting Customer Id: {0}", id);
 
-                return Content( "Unable to delete customer");
+                return Content("Unable to delete customer");
             }
 
         }

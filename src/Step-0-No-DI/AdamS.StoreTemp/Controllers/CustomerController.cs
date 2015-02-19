@@ -10,6 +10,12 @@ namespace AdamS.OnlineStore.Controllers
 {
     public class CustomerController : Controller
     {
+        private INotificationProvider _notificationProvider ;
+
+        public CustomerController(INotificationProvider notification)
+        {
+            _notificationProvider = notification;
+        }
 
         public ActionResult Index()
         {

@@ -1,15 +1,8 @@
-using System;
 using System.Net.Mail;
-using System.Threading.Tasks;
 using AdamS.StoreTemp.Models.Common;
 
-namespace AdamS.OnlineStore.Models
+namespace AdamS.StoreTemp.Models
 {
-    public interface INotificationProvider
-    {
-        bool Send(string destination, string subject, string body);
-    }
-
     public class EmailSender : INotificationProvider
     {
         public bool Send(string destination, string subject, string body)
@@ -42,27 +35,17 @@ namespace AdamS.OnlineStore.Models
 
                     client.Credentials = new System.Net.NetworkCredential(
                         mailServerUserName, mailServerPassword);
-                    
+
                     //client.Send(email);
                 }
 
                 return true;
 
             }
-            catch 
+            catch
             {
                 return false;
             }
         }
     }
-
-    public class SmsSender : INotificationProvider
-    {
-        public bool Send(string destination, string subject, string body)
-        {
-            //send sms message
-            return true;
-        }
-    }
-
 }
