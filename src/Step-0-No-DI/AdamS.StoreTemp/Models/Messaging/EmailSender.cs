@@ -5,12 +5,8 @@ using AdamS.StoreTemp.Models.Common;
 
 namespace AdamS.OnlineStore.Models
 {
-    public interface INotificationProvider
-    {
-        bool Send(string destination, string subject, string body);
-    }
-
-    public class EmailSender : INotificationProvider
+    
+    public class EmailSender 
     {
         public bool Send(string destination, string subject, string body)
         {
